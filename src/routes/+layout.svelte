@@ -38,6 +38,10 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
+	// Skeleton Modals
+	import { initializeStores, Modal } from '@skeletonlabs/skeleton';
+	initializeStores();
+
 	// Components
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -49,8 +53,10 @@
 	<title>Blog</title>
 </svelte:head>
 
+<Modal />
+
 <div class="grid grid-rows-[auto_1fr_auto]">
-	<Header />
+	<Header isLoggedIn={session?.user.id} />
 	<div class="container mx-auto grid grid-cols-1 xl:grid-cols-[200px_minmax(0px,_1fr)_200px]">
 		<!-- Sidebar (Left): hidden in smaller screen sizes -->
 		<Left />

@@ -48,7 +48,7 @@
 </script>
 
 {#if editor}
-	<div class="flex gap-2 relative">
+	<div class="flex gap-2 relative items-center">
 		<button
 			on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
 			class:active={editor.isActive('heading', { level: 1 })}
