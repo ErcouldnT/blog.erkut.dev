@@ -37,31 +37,26 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	// Components
+	import Header from '$lib/Header.svelte';
+	import Footer from '$lib/Footer.svelte';
+	import Left from '$lib/Left.svelte';
+	import Right from '$lib/Right.svelte';
 </script>
 
 <div class="grid grid-rows-[auto_1fr_auto]">
-	<!-- Header -->
-	<header class="bg-red-500 p-4">(header)</header>
+	<Header />
 	<!-- Page -->
 	<div class="container mx-auto grid grid-cols-1 xl:grid-cols-[200px_minmax(0px,_1fr)_200px]">
-		<!-- Sidebar (Left) -->
-		<!-- NOTE: hidden in smaller screen sizes -->
-		<aside class="sticky top-0 col-span-1 hidden h-screen bg-yellow-500 p-4 xl:block">
-			(sidebar)
-		</aside>
+		<!-- Sidebar (Left): hidden in smaller screen sizes -->
+		<Left />
 		<!-- Main -->
 		<main class="col-span-1 space-y-4 bg-green-500 p-4">
 			<slot />
-			<!-- <p class="h-[512px] bg-purple-500 p-4">Paragraph 1</p>
-			<p class="h-[512px] bg-purple-500 p-4">Paragraph 2</p>
-			<p class="h-[512px] bg-purple-500 p-4">Paragraph 3</p> -->
 		</main>
-		<!-- Sidebar (Right) -->
-		<!-- NOTE: hidden in smaller screen sizes -->
-		<aside class="sticky top-0 col-span-1 hidden h-screen bg-yellow-500 p-4 xl:block">
-			(sidebar)
-		</aside>
+		<!-- Sidebar (Right): hidden in smaller screen sizes -->
+		<Right />
 	</div>
-	<!-- Footer -->
-	<footer class="bg-blue-500 p-4">(footer)</footer>
+	<Footer />
 </div>
