@@ -1,16 +1,23 @@
 <script lang="ts">
-	import { Home, KeyRound } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
+	import { Home, KeyRound, LogOut } from 'lucide-svelte';
 
-	export let isLoggedIn: string | undefined;
+	export let data;
+
+	const signOut = async () => {
+		await data.supabase.auth.signOut({ scope: 'local' });
+		return goto('/');
+	};
 </script>
 
 <header class="p-4">
 	<div class="flex items-center relative">
 		<a class="btn" href="/"><Home /></a>
-		{#if isLoggedIn}
+		{#if data.user}
 			<a class="btn variant-outline-success" href="/yeni">Yeni post</a>
+			<button on:click={signOut} class="btn absolute right-0"><LogOut /></button>
 		{:else}
-			<a href="/dildo" class="btn absolute right-0"><KeyRound /></a>
+			<a href="/in" class="btn absolute right-0"><KeyRound /></a>
 		{/if}
 	</div>
 </header>
