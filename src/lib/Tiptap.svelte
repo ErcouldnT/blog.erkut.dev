@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
-	import { Heading1, Heading2, Type } from 'lucide-svelte';
+	import { Heading1, Heading2, Save, Type } from 'lucide-svelte';
 
 	/**
 	 * @type {HTMLDivElement}
@@ -13,16 +13,24 @@
 	 */
 	let editor;
 
+	export let editable = false;
+	export let autofocus = false;
+
+	const savePost = () => {
+		return alert(editor.getHTML());
+	};
+
 	onMount(() => {
 		editor = new Editor({
 			element: element,
 			extensions: [StarterKit],
-			content: '<h1>Hello World! 🌍️ </h1>',
+			content: '<h1>Başlık</h1>',
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
 			},
-			autofocus: false,
+			editable,
+			autofocus,
 			editorProps: {
 				attributes: {
 					class:
@@ -40,7 +48,7 @@
 </script>
 
 {#if editor}
-	<div>
+	<div class="flex gap-2 relative">
 		<button
 			on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
 			class:active={editor.isActive('heading', { level: 1 })}
@@ -59,6 +67,7 @@
 		>
 			<Type />
 		</button>
+		<button on:click={savePost} class="absolute right-0"><Save /></button>
 	</div>
 {/if}
 
