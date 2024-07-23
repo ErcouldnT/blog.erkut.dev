@@ -3,7 +3,7 @@
 	$: ({ countries } = data);
 </script>
 
-<div class="prose">
+<div class="prose prose-invert">
 	<h1>Welcome to Supabase!</h1>
 	<ul>
 		{#each countries as country}

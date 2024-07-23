@@ -54,7 +54,7 @@
 	<div class="container mx-auto grid grid-cols-1 xl:grid-cols-[200px_minmax(0px,_1fr)_200px]">
 		<!-- Sidebar (Left): hidden in smaller screen sizes -->
 		<Left />
-		<main class="col-span-1 bg-green-500 space-y-4 p-4 rounded">
+		<main class="col-span-1 space-y-4 p-4 rounded">
 			<slot />
 		</main>
 		<!-- Sidebar (Right): hidden in smaller screen sizes -->
