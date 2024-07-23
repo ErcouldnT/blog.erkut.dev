@@ -115,5 +115,6 @@
 		"width",
 		"zIndex"
 	],
-	"cSpell.words": ["skeletonlabs", "supabase"]
+	"tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"],
+	"cSpell.words": ["lucide", "skeletonlabs", "supabase", "tiptap"]
 }

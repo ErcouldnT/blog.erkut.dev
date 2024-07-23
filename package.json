@@ -45,6 +45,10 @@
     "@floating-ui/dom": "1.6.7",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",
-    "highlight.js": "11.10.0"
+    "@tiptap/core": "^2.5.5",
+    "@tiptap/pm": "^2.5.5",
+    "@tiptap/starter-kit": "^2.5.5",
+    "highlight.js": "11.10.0",
+    "lucide-svelte": "^0.414.0"
   }
 }

@@ -39,20 +39,22 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// Components
-	import Header from '$lib/Header.svelte';
-	import Footer from '$lib/Footer.svelte';
-	import Left from '$lib/Left.svelte';
-	import Right from '$lib/Right.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Left from '$lib/components/Left.svelte';
+	import Right from '$lib/components/Right.svelte';
 </script>
+
+<svelte:head>
+	<title>Blog</title>
+</svelte:head>
 
 <div class="grid grid-rows-[auto_1fr_auto]">
 	<Header />
-	<!-- Page -->
 	<div class="container mx-auto grid grid-cols-1 xl:grid-cols-[200px_minmax(0px,_1fr)_200px]">
 		<!-- Sidebar (Left): hidden in smaller screen sizes -->
 		<Left />
-		<!-- Main -->
-		<main class="col-span-1 space-y-4 bg-green-500 p-4">
+		<main class="col-span-1 bg-green-500 space-y-4 p-4">
 			<slot />
 		</main>
 		<!-- Sidebar (Right): hidden in smaller screen sizes -->
