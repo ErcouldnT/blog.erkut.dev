@@ -1,0 +1,4 @@
+- supabase type'ları update et.
+- async await server load.
+- dinamik post page.
+-

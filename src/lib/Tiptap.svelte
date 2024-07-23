@@ -1,23 +1,24 @@
-<script>
+<script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import { goto } from '$app/navigation';
+	import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import { Heading1, Heading2, Save, Type } from 'lucide-svelte';
 
-	/**
-	 * @type {HTMLDivElement}
-	 */
-	let element;
-	/**
-	 * @type {Editor}
-	 */
-	let editor;
+	let element: HTMLDivElement;
+	let editor: Editor;
 
 	export let editable = false;
 	export let autofocus = false;
+	export let supabase: SupabaseClient;
 
-	const savePost = () => {
-		return alert(editor.getHTML());
+	const savePost = async () => {
+		await supabase.from('blog-posts').insert({
+			content: editor.getHTML()
+		});
+		// return alert(editor.getHTML());
+		return goto('/');
 	};
 
 	onMount(() => {

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
 	import { Home, KeyRound, LogOut } from 'lucide-svelte';
 
 	export let data;
@@ -13,7 +14,7 @@
 <header class="p-4">
 	<div class="flex items-center relative">
 		<a class="btn" href="/"><Home /></a>
-		{#if data.user}
+		{#if data.session}
 			<a class="btn variant-outline-success" href="/yeni">Yeni post</a>
 			<button on:click={signOut} class="btn absolute right-0"><LogOut /></button>
 		{:else}

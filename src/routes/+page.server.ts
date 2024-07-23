@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals: { supabase } }) => {
-	const { data: countries } = await supabase.from('countries').select('name').order('name');
-	return { countries: countries ?? [] };
+	const { data: posts } = await supabase.from('blog-posts').select('*').order('created_at');
+	return { posts: posts ?? [] };
 };
