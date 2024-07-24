@@ -1,4 +1,5 @@
 - supabase type'ları update et.
 - async await server load.
 - dinamik post page.
+- yeni post sayfasını persistent storage a yaz
 -
