@@ -1,5 +1,12 @@
-- supabase type'ları update et.
+- update supabase types script.
 - async await server load.
 - dinamik post page.
-- yeni post sayfasını persistent storage a yaz
--
+- yeni post content ini persistent storage a yaz
+- slugify
+- error page
+- animations
+- supabase client side auth warning
+- go top button
+- superforms
+- rss
+- error handling
