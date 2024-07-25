@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
 	import { Editor } from '@tiptap/core';
@@ -14,7 +15,9 @@
 	let html: string;
 	let title: string;
 	let slug: string;
+	let newPost = $page.url.pathname === '/yeni' ? true : false;
 
+	export let content = $post;
 	export let editable = false;
 	export let autofocus = false;
 	export let supabase: SupabaseClient;
@@ -58,11 +61,11 @@
 		editor = new Editor({
 			element: element,
 			extensions: [StarterKit],
-			content: $post,
+			content,
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
-				post.set(editor.getHTML());
+				newPost && post.set(editor.getHTML());
 			},
 			editable,
 			autofocus,
@@ -82,7 +85,7 @@
 	});
 </script>
 
-{#if editor}
+{#if editor && editable}
 	<div class="flex gap-2 relative items-center">
 		<button
 			on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
