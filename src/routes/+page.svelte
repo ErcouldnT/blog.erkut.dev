@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PostCard from '$lib/PostCard.svelte';
 	import Loading from '$lib/shared/Loading.svelte';
 	import type { Database } from '../types/supabase';
 
@@ -12,14 +13,16 @@
 </script>
 
 <div class="prose prose-invert max-w-none">
-	<h1>Güncel</h1>
-	{#await promise}
-		<Loading />
-	{:then posts}
-		<div class="flex flex-col">
-			{#each posts ?? [] as post}
-				<a href="/{post.slug}">{post.title}</a>
-			{/each}
-		</div>
-	{/await}
+	<h1>Son Yazılar</h1>
+	<br />
 </div>
+
+{#await promise}
+	<Loading />
+{:then posts}
+	<div class="w-full text-token grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+		{#each posts ?? [] as post}
+			<PostCard {post} />
+		{/each}
+	</div>
+{/await}

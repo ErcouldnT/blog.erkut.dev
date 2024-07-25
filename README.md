@@ -1,11 +1,8 @@
 - update supabase types script.
 - async await server load.
-- dinamik post page.
-- yeni post content ini persistent storage a yaz
-- slugify
 - error page
 - animations
-- supabase client side auth warning
+- fix: supabase client side auth warning
 - go top button
 - superforms
 - rss

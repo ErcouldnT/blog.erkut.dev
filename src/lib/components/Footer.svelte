@@ -1,1 +1,1 @@
-<footer class="p-4">by Erkut</footer>
+<footer class="p-10 text-center font-thin">{new Date().getFullYear()} © Erkut</footer>
