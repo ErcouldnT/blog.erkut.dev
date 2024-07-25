@@ -71,6 +71,11 @@ const authGuard: Handle = async ({ event, resolve }) => {
 		redirect(303, '/in');
 	}
 
+	// todo: (private) group layout
+	if (!event.locals.session && event.url.pathname.startsWith('/gunluk')) {
+		redirect(303, '/in');
+	}
+
 	if (event.locals.session && event.url.pathname === '/in') {
 		redirect(303, '/');
 	}

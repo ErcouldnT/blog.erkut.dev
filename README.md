@@ -10,3 +10,5 @@
 - superforms
 - rss
 - error handling
+- seo component
+- isAdmin

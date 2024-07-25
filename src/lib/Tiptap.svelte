@@ -5,19 +5,44 @@
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import { Heading1, Heading2, Save, Type } from 'lucide-svelte';
+	import slugify from './utils/slugify';
+	import findTitle from './utils/findTitle';
 
 	let element: HTMLDivElement;
 	let editor: Editor;
+	let html: string;
+	let title: string;
+	let slug: string;
 
 	export let editable = false;
 	export let autofocus = false;
 	export let supabase: SupabaseClient;
 
+	// todo: form olarak backend e gönder
 	const savePost = async () => {
-		await supabase.from('blog-posts').insert({
-			content: editor.getHTML()
+		html = editor.getHTML();
+
+		if (!!findTitle(html)) {
+			title = findTitle(html)!;
+		} else {
+			// todo: use popup or toast
+			return alert('En az bir adet Ana Başlık (H1) yaz.');
+		}
+
+		slug = slugify(title);
+
+		const { error } = await supabase.from('blog-posts').insert({
+			title,
+			slug,
+			content: html
 		});
-		// return alert(editor.getHTML());
+
+		if (error) {
+			// todo: use popup or toast
+			return alert('Aynı başlıkta konu zaten mevcut.');
+		}
+
+		// return alert(title);
 		return goto('/');
 	};
 

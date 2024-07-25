@@ -1,7 +1,11 @@
 import { json } from '@sveltejs/kit';
 
 export async function GET({ locals: { supabase } }) {
-	const res = await supabase.from('blog-posts').select('*').order('created_at');
+	const { data, error } = await supabase
+		.from('blog-posts')
+		.select()
+		.order('created_at', { ascending: false });
 
-	return json(res.data);
+	// todo: cache-control and redis
+	return json(data);
 }
