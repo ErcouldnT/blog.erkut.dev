@@ -4,7 +4,8 @@
 	import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
-	import { Heading1, Heading2, Save, Type } from 'lucide-svelte';
+	import { Heading1, Heading2, Type, Save, Trash2 } from 'lucide-svelte';
+	import { post } from './stores/post';
 	import slugify from './utils/slugify';
 	import findTitle from './utils/findTitle';
 
@@ -17,6 +18,12 @@
 	export let editable = false;
 	export let autofocus = false;
 	export let supabase: SupabaseClient;
+
+	const resetContent = () => {
+		// todo: confirmation popup
+		post.reset();
+		editor.commands.setContent($post);
+	};
 
 	// todo: form olarak backend e gönder
 	const savePost = async () => {
@@ -43,6 +50,7 @@
 		}
 
 		// return alert(title);
+		post.reset();
 		return goto('/');
 	};
 
@@ -50,10 +58,11 @@
 		editor = new Editor({
 			element: element,
 			extensions: [StarterKit],
-			content: '<h1>Başlık</h1>',
+			content: $post,
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
+				post.set(editor.getHTML());
 			},
 			editable,
 			autofocus,
@@ -93,7 +102,10 @@
 		>
 			<Type />
 		</button>
-		<button on:click={savePost} class="absolute right-0"><Save /></button>
+		<div class="absolute right-0 space-x-1">
+			<button on:click={savePost}><Save /></button>
+			<button on:click={resetContent}><Trash2 /></button>
+		</div>
 	</div>
 {/if}
 
