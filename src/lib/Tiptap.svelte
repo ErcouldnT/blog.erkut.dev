@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
+	import type { SupabaseClient } from '@supabase/supabase-js';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import { Heading1, Heading2, Type, Save, Trash2 } from 'lucide-svelte';
@@ -32,7 +32,7 @@
 	const savePost = async () => {
 		html = editor.getHTML();
 
-		if (!!findTitle(html)) {
+		if (typeof findTitle(html) === 'string') {
 			title = findTitle(html)!;
 		} else {
 			// todo: use popup or toast

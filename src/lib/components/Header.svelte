@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
+	import type { SupabaseClient } from '@supabase/supabase-js';
 	import { Home, Lock, LogOut } from 'lucide-svelte';
 	import { page } from '$app/stores';
 

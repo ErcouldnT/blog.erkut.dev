@@ -1,4 +1,4 @@
-import { redirect, fail } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 export const actions = {
 	// signup: async ({ request, locals: { supabase } }) => {
