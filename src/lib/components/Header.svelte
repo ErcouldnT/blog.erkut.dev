@@ -26,7 +26,7 @@
 				<a class="btn variant-outline-success" href="/gunluk">Günlük</a>
 				<button on:click={signOut} class="btn"><LogOut /></button>
 			{:else}
-				<a href="/in" class="btn"><Lock /></a>
+				<a href="/giris" class="btn"><Lock /></a>
 			{/if}
 		</div>
 	</div>

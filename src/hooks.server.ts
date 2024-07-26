@@ -67,16 +67,12 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	event.locals.session = session;
 	event.locals.user = user;
 
-	if (!event.locals.session && event.url.pathname.startsWith('/yeni')) {
-		redirect(303, '/in');
+	// if (!event.locals.session && event.url.pathname.startsWith('/yeni')) {
+	if (!event.locals.session && event.route.id?.includes('(auth-only)')) {
+		redirect(303, '/giris');
 	}
 
-	// todo: (private) group layout
-	if (!event.locals.session && event.url.pathname.startsWith('/gunluk')) {
-		redirect(303, '/in');
-	}
-
-	if (event.locals.session && event.url.pathname === '/in') {
+	if (event.locals.session && event.url.pathname === '/giris') {
 		redirect(303, '/');
 	}
 

@@ -3,7 +3,6 @@
 - animations
 - fix: supabase client side auth warning
 - go top button
-- superforms
 - rss
 - error handling
 - seo component
@@ -11,3 +10,5 @@
 - closing tab warning if editing post
 - github actions
 - tiptap image upload
+- onboarding page
+- translate the page button
