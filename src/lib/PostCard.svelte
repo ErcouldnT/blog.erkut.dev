@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Avatar } from '@skeletonlabs/skeleton';
+	import type { Tables } from '../types/supabase';
 
-	export let post;
+	export let post: Tables<'blog-posts'>;
 </script>
 
 <a class="card variant-ghost-primary card-hover overflow-hidden" href={post.slug}>

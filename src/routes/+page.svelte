@@ -1,12 +1,13 @@
 <script lang="ts">
 	import PostCard from '$lib/PostCard.svelte';
 	import Loading from '$lib/shared/Loading.svelte';
-	import type { Database } from '../types/supabase';
+	import type { Tables } from '../types/supabase';
 
 	async function getPosts() {
 		const res = await fetch('/api/posts');
 		const posts = await res.json();
-		return posts as Database['public']['Tables']['blog-posts']['Row'][];
+		// return posts as Database['public']['Tables']['blog-posts']['Row'][];
+		return posts as Tables<'blog-posts'>[];
 	}
 
 	let promise = getPosts();

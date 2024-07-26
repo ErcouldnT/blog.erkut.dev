@@ -35,8 +35,8 @@ export type Database = {
 					content: string;
 					created_at: string;
 					id: number;
-					slug: string | null;
-					title: string | null;
+					slug: string;
+					title: string;
 					updated_at: string;
 				};
 				Insert: {
@@ -44,8 +44,8 @@ export type Database = {
 					content: string;
 					created_at?: string;
 					id?: number;
-					slug?: string | null;
-					title?: string | null;
+					slug: string;
+					title: string;
 					updated_at?: string;
 				};
 				Update: {
@@ -53,8 +53,8 @@ export type Database = {
 					content?: string;
 					created_at?: string;
 					id?: number;
-					slug?: string | null;
-					title?: string | null;
+					slug?: string;
+					title?: string;
 					updated_at?: string;
 				};
 				Relationships: [
