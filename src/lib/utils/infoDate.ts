@@ -1,4 +1,3 @@
-export default (date: Date) => {
-	console.log(date);
-	return null;
+export default (date: string) => {
+	return new Date(date).toLocaleDateString('tr');
 };

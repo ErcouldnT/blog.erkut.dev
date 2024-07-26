@@ -17,9 +17,8 @@
 	},
 	"lint-staged": {
 		"*": [
-			"npm run update-types",
-			"npm run format",
-			"npm run lint"
+			"npm run format --",
+			"npm run lint -- --ignore-pattern *.md"
 		]
 	},
 	"dependencies": {
@@ -31,6 +30,7 @@
 		"@tiptap/starter-kit": "^2.5.5",
 		"highlight.js": "11.10.0",
 		"lucide-svelte": "^0.414.0",
+		"reading-time-estimator": "^1.11.0",
 		"slugify": "^1.6.6",
 		"svelte-persisted-store": "^0.11.0"
 	},

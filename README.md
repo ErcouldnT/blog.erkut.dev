@@ -1,5 +1,4 @@
-- update supabase types script.
-- async await server load.
+- async await server load
 - error page
 - animations
 - fix: supabase client side auth warning
@@ -11,3 +10,4 @@
 - isAdmin
 - closing tab warning if editing post
 - github actions
+- tiptap image upload
