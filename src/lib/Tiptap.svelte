@@ -12,24 +12,35 @@
 	import slugify from './utils/slugify';
 	import findTitle from './utils/findTitle';
 
-	// const post: Tables<"blog-posts">
-	let element: HTMLDivElement;
-	let editor: Editor;
-	let html: string;
-	let title: string;
-	let slug: string;
-	let newPost = $page.url.pathname === '/yeni' ? true : false;
-
 	export let id = 0;
 	export let content = $contentHtml;
 	export let editable = false;
 	export let autofocus = false;
 	export let supabase: SupabaseClient;
 
-	const resetContent = () => {
+	// const post: Tables<"blog-posts">
+	let element: HTMLDivElement;
+	let editor: Editor;
+	let html: string;
+	let title: string;
+	let slug: string;
+	let newPost = $page.url.pathname === '/yeni' ? true : false; // or id === 0
+
+	const removePost = async () => {
 		// todo: confirmation popup
-		contentHtml.reset();
-		editor.commands.setContent($contentHtml);
+		if (id === 0) {
+			// new post: clear content
+			contentHtml.reset();
+			editor.commands.setContent($contentHtml);
+		} else {
+			// remove post
+			const { error } = await supabase.from('blog-posts').delete().eq('id', id);
+			// todo: toast
+			if (error) return alert('Post silinemedi.');
+			// todo: toast
+			alert('Post silindi.'); // todo: clear cache
+			return goto('/');
+		}
 	};
 
 	// todo: form olarak backend e gönder
@@ -81,7 +92,8 @@
 				return alert('Yazı güncellenemedi.');
 			}
 			// todo: use popup or toast
-			return alert('Başarıyla güncellendi.'); // todo: clear cache
+			alert('Başarıyla güncellendi.'); // todo: clear cache
+			return goto('/' + slug);
 		}
 	};
 
@@ -135,7 +147,7 @@
 		</button>
 		<div class="absolute right-0 space-x-1">
 			<button on:click={savePost}><Save /></button>
-			<button on:click={resetContent}><Trash2 /></button>
+			<button on:click={removePost}><Trash2 /></button>
 		</div>
 	</div>
 {/if}
