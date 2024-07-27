@@ -1,21 +1,32 @@
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ locals: { supabase } }) => {
-	const getPosts = async () => {
+	const get10Posts = async () => {
 		const { data: posts, error: err } = await supabase
 			.from('blog-posts')
 			.select()
-			.order('created_at', { ascending: false });
+			.order('created_at', { ascending: false })
+			.limit(10);
 
 		if (err) return error(500, { message: 'Database connection error' });
+		return posts;
+	};
 
+	const skip10Posts = async () => {
+		const { data: posts, error: err } = await supabase
+			.from('blog-posts')
+			.select()
+			.order('created_at', { ascending: false })
+			.range(10, 99);
+
+		if (err) return error(500, { message: 'Load more posts error' });
 		return posts;
 	};
 
 	return {
-		posts: getPosts(),
+		posts: get10Posts(),
 		lazy: {
-			posts: []
+			posts: skip10Posts()
 		}
 	};
 };

@@ -20,6 +20,16 @@
 		{#each posts ?? [] as post}
 			<PostCard {post} />
 		{/each}
+
+		{#await data.lazy.posts}
+			<p>Loading more posts...</p>
+		{:then posts}
+			{#each posts ?? [] as post}
+				<PostCard {post} />
+			{/each}
+		{:catch}
+			<p>Error loading more posts...</p>
+		{/await}
 	</div>
 {:catch}
 	<p>Error loading posts...</p>

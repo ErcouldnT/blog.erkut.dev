@@ -13,3 +13,4 @@
 - file upload section
 - favicon
 - image minimizer
+- post search
