@@ -1,4 +1,3 @@
-- async await server load
 - error page
 - animations
 - fix: supabase client side auth warning
@@ -12,3 +11,5 @@
 - onboarding page
 - translate the page button
 - file upload section
+- favicon
+- image minimizer

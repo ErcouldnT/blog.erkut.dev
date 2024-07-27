@@ -2,16 +2,8 @@
 	import SEO from '$lib/shared/SEO.svelte';
 	import PostCard from '$lib/PostCard.svelte';
 	import Loading from '$lib/shared/Loading.svelte';
-	import type { Tables } from '../types/supabase';
 
-	async function getPosts() {
-		const res = await fetch('/api/posts');
-		const posts = await res.json();
-		// return posts as Database['public']['Tables']['blog-posts']['Row'][];
-		return posts as Tables<'blog-posts'>[];
-	}
-
-	let promise = getPosts();
+	export let data;
 </script>
 
 <SEO />
@@ -21,7 +13,7 @@
 	<br />
 </div>
 
-{#await promise}
+{#await data.posts}
 	<Loading />
 {:then posts}
 	<div class="w-full text-token grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -29,4 +21,6 @@
 			<PostCard {post} />
 		{/each}
 	</div>
+{:catch}
+	<p>Error loading posts...</p>
 {/await}
