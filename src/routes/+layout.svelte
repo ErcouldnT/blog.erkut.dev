@@ -40,7 +40,7 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// Skeleton Modals
-	import { initializeStores, Modal } from '@skeletonlabs/skeleton';
+	import { initializeStores, Modal, Toast } from '@skeletonlabs/skeleton';
 	initializeStores();
 
 	// Components
@@ -51,7 +51,7 @@
 </script>
 
 <SEO />
-
+<Toast position="br" />
 <Modal />
 
 <div class="grid grid-rows-[auto_1fr_auto]">

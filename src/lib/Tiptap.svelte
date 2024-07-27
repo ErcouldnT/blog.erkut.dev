@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import DOMPurify from 'isomorphic-dompurify';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import type { SupabaseClient } from '@supabase/supabase-js';
@@ -26,8 +27,18 @@
 	let slug: string;
 	let newPost = $page.url.pathname === '/yeni' ? true : false; // or id === 0
 
+	const toastStore = getToastStore();
+
+	const addToast = (message: string, positive?: boolean) => {
+		const t: ToastSettings = {
+			message,
+			background: positive ? 'variant-filled-secondary' : 'variant-filled-primary'
+		};
+		toastStore.trigger(t);
+	};
+
 	const removePost = async () => {
-		// todo: confirmation popup
+		// todo: confirmation modal
 		if (id === 0) {
 			// new post: clear content
 			contentHtml.reset();
@@ -35,10 +46,8 @@
 		} else {
 			// remove post
 			const { error } = await supabase.from('blog-posts').delete().eq('id', id);
-			// todo: toast
-			if (error) return alert('Post silinemedi.');
-			// todo: toast
-			alert('Post silindi.'); // todo: clear cache
+			if (error) return addToast('Post silinemedi.');
+			addToast('Post başarıyla silindi.', true); // todo: clear cache
 			return goto('/');
 		}
 	};
@@ -50,7 +59,7 @@
 		if (typeof findTitle(html) === 'string') {
 			title = findTitle(html)!;
 		} else {
-			// todo: use popup or toast
+			// todo: use modal
 			return alert('En az bir adet Ana Başlık (H1) yaz.');
 		}
 
@@ -66,13 +75,10 @@
 					content: DOMPurify.sanitize(html) // todo: server-side DOMPurify!!!
 				})
 				.select();
-
 			if (error) {
-				// todo: use popup or toast
+				// todo: use modal
 				return alert('Aynı başlıkta konu zaten mevcut.');
 			}
-
-			// return alert(title);
 			contentHtml.reset();
 			return goto('/' + slug);
 		} else {
@@ -86,13 +92,10 @@
 					updated_at: new Date()
 				})
 				.eq('id', id);
-
 			if (error) {
-				// todo: use popup or toast
-				return alert('Yazı güncellenemedi.');
+				return addToast('Yazı güncellenemedi.');
 			}
-			// todo: use popup or toast
-			alert('Başarıyla güncellendi.'); // todo: clear cache
+			addToast('Başarıyla güncellendi.', true); // todo: clear cache
 			return goto('/' + slug);
 		}
 	};
