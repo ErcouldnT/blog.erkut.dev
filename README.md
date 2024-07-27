@@ -4,13 +4,18 @@
 - go top button
 - rss
 - error handling
-- isAdmin
 - closing tab warning if editing post
 - github actions
-- tiptap image upload
-- onboarding page
 - translate the page button
 - file upload section
 - favicon
 - image minimizer
 - post search
+- isAdmin
+- admin page
+- tiptap image upload
+- booktolia
+- onboarding page
+- lazy comments
+- page scrolling loading bar under header
+- confirmation modal

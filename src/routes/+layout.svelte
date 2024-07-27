@@ -51,7 +51,7 @@
 </script>
 
 <SEO />
-<Toast position="br" />
+<Toast position="t" />
 <Modal />
 
 <div class="grid grid-rows-[auto_1fr_auto]">

@@ -116,6 +116,14 @@
 		"zIndex"
 	],
 	"tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"],
-	"cSpell.words": ["dompurify", "lucide", "skeletonlabs", "supabase", "superforms", "tiptap"],
+	"cSpell.words": [
+		"booktolia",
+		"dompurify",
+		"lucide",
+		"skeletonlabs",
+		"supabase",
+		"superforms",
+		"tiptap"
+	],
 	"css.lint.unknownAtRules": "ignore"
 }
