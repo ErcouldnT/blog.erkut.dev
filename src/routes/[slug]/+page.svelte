@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SEO from '$lib/shared/SEO.svelte';
 	import { Clock9, PenLine, SquarePen, User } from 'lucide-svelte';
 	import Tiptap from '$lib/Tiptap.svelte';
 	import infoDate from '$lib/utils/infoDate.js';
@@ -8,6 +9,8 @@
 
 	const readingMinute = readingTime(data.post.content);
 </script>
+
+<SEO title={data.post.title} />
 
 <div class="flex flex-col space-y-1">
 	<div class="flex space-x-2">

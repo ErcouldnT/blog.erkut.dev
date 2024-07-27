@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SEO from '$lib/shared/SEO.svelte';
 	import PostCard from '$lib/PostCard.svelte';
 	import Loading from '$lib/shared/Loading.svelte';
 	import type { Tables } from '../types/supabase';
@@ -12,6 +13,8 @@
 
 	let promise = getPosts();
 </script>
+
+<SEO />
 
 <div class="prose prose-invert max-w-none">
 	<h1>Son Yazılar</h1>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.postcss';
+	import SEO from '$lib/shared/SEO.svelte';
 
 	// Supabase Auth
 	import { invalidate } from '$app/navigation';
@@ -49,9 +50,7 @@
 	import Right from '$lib/components/Right.svelte';
 </script>
 
-<svelte:head>
-	<title>Blog</title>
-</svelte:head>
+<SEO />
 
 <Modal />
 

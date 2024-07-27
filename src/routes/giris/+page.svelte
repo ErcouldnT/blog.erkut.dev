@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SEO from '$lib/shared/SEO.svelte';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms';
 	// import SuperDebug from 'sveltekit-superforms';
@@ -12,6 +13,8 @@
 
 	export const snapshot = { capture, restore };
 </script>
+
+<SEO title="Giriş yap" />
 
 <form class="flex flex-col space-y-4 max-w-md mx-auto" method="POST" action="?/login" use:enhance>
 	{#if $message}<small class="invalid">{$message}</small>{/if}
@@ -47,6 +50,7 @@
 		{/if}
 	</button>
 	<!-- <button formaction="?/signup">Kayıt ol</button> -->
+	<!-- <a class="text-sm text-right underline" href="#">Kayıt ol</a> -->
 </form>
 
 <!-- <SuperDebug data={$form} /> -->

@@ -5,7 +5,6 @@
 - go top button
 - rss
 - error handling
-- seo component
 - isAdmin
 - closing tab warning if editing post
 - github actions
