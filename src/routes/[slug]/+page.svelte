@@ -7,6 +7,8 @@
 
 	export let data;
 
+	let editable = data.user?.id === data.post.author; // or admin
+
 	const readingMinute = readingTime(data.post.content);
 </script>
 
@@ -34,5 +36,5 @@
 </div>
 
 <div class="prose prose-invert max-w-none">
-	<Tiptap supabase={data.supabase} content={data.post.content} />
+	<Tiptap supabase={data.supabase} content={data.post.content} {editable} />
 </div>

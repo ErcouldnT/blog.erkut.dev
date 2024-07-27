@@ -72,7 +72,7 @@
 			editorProps: {
 				attributes: {
 					class:
-						'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl prose-invert max-w-none focus:outline-none'
+						'prose prose-sm sm:prose-base lg:prose-lg prose-invert max-w-none focus:outline-none'
 				}
 			}
 		});
