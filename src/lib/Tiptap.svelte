@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import DOMPurify from 'dompurify';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import type { SupabaseClient } from '@supabase/supabase-js';
@@ -44,7 +45,7 @@
 		const { error } = await supabase.from('blog-posts').insert({
 			title,
 			slug,
-			content: html
+			content: DOMPurify.sanitize(html) // todo: server-side DOMPurify!!!
 		});
 
 		if (error) {
