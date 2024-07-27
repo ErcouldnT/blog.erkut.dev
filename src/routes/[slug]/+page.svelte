@@ -6,27 +6,28 @@
 	import readingTime from '$lib/utils/readingTime.js';
 
 	export let data;
+	const { post, user, supabase } = data;
 
-	let editable = data.user?.id === data.post.author; // or admin
+	let editable = user?.id === post.author; // or admin
 
-	const readingMinute = readingTime(data.post.content);
+	const readingMinute = readingTime(post.content);
 </script>
 
-<SEO title={data.post.title} />
+<SEO title={post.title} />
 
 <div class="flex flex-col space-y-1">
 	<div class="flex space-x-2">
 		<User />
-		<p>{data.post.author}</p>
+		<p>{post.author}</p>
 	</div>
 	<div class="flex space-x-2">
 		<SquarePen />
-		<p>{infoDate(data.post.created_at)}</p>
+		<p>{infoDate(post.created_at)}</p>
 	</div>
-	{#if data.post.created_at !== data.post.updated_at}
+	{#if post.created_at !== post.updated_at}
 		<div class="flex space-x-2">
 			<PenLine />
-			<p>Updated: {infoDate(data.post.updated_at)}</p>
+			<p>{infoDate(post.updated_at)} (Güncellendi)</p>
 		</div>
 	{/if}
 	<div class="flex space-x-2">
@@ -36,5 +37,5 @@
 </div>
 
 <div class="prose prose-invert max-w-none">
-	<Tiptap supabase={data.supabase} content={data.post.content} {editable} />
+	<Tiptap {supabase} content={post.content} {editable} id={post.id} />
 </div>

@@ -1,3 +1,3 @@
 export default (date: string) => {
-	return new Date(date).toLocaleDateString('tr');
+	return new Date(date).toLocaleString('tr');
 };

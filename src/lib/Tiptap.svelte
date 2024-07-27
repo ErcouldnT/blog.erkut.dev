@@ -1,16 +1,18 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import DOMPurify from 'dompurify';
+	import DOMPurify from 'isomorphic-dompurify';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import type { SupabaseClient } from '@supabase/supabase-js';
+	// import type { Tables } from '../types/supabase';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import { Heading1, Heading2, Type, Save, Trash2 } from 'lucide-svelte';
-	import { post } from './stores/post';
+	import { contentHtml } from './stores/content';
 	import slugify from './utils/slugify';
 	import findTitle from './utils/findTitle';
 
+	// const post: Tables<"blog-posts">
 	let element: HTMLDivElement;
 	let editor: Editor;
 	let html: string;
@@ -18,15 +20,16 @@
 	let slug: string;
 	let newPost = $page.url.pathname === '/yeni' ? true : false;
 
-	export let content = $post;
+	export let id = 0;
+	export let content = $contentHtml;
 	export let editable = false;
 	export let autofocus = false;
 	export let supabase: SupabaseClient;
 
 	const resetContent = () => {
 		// todo: confirmation popup
-		post.reset();
-		editor.commands.setContent($post);
+		contentHtml.reset();
+		editor.commands.setContent($contentHtml);
 	};
 
 	// todo: form olarak backend e gönder
@@ -42,20 +45,44 @@
 
 		slug = slugify(title);
 
-		const { error } = await supabase.from('blog-posts').insert({
-			title,
-			slug,
-			content: DOMPurify.sanitize(html) // todo: server-side DOMPurify!!!
-		});
+		if (id === 0) {
+			// new post
+			const { error } = await supabase
+				.from('blog-posts')
+				.insert({
+					title,
+					slug,
+					content: DOMPurify.sanitize(html) // todo: server-side DOMPurify!!!
+				})
+				.select();
 
-		if (error) {
+			if (error) {
+				// todo: use popup or toast
+				return alert('Aynı başlıkta konu zaten mevcut.');
+			}
+
+			// return alert(title);
+			contentHtml.reset();
+			return goto('/' + slug);
+		} else {
+			// update
+			const { error } = await supabase
+				.from('blog-posts')
+				.update({
+					title,
+					slug,
+					content: DOMPurify.sanitize(html), // todo: server-side DOMPurify!!!
+					updated_at: new Date()
+				})
+				.eq('id', id);
+
+			if (error) {
+				// todo: use popup or toast
+				return alert('Yazı güncellenemedi.');
+			}
 			// todo: use popup or toast
-			return alert('Aynı başlıkta konu zaten mevcut.');
+			return alert('Başarıyla güncellendi.'); // todo: clear cache
 		}
-
-		// return alert(title);
-		post.reset();
-		return goto('/');
 	};
 
 	onMount(() => {
@@ -66,7 +93,7 @@
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
-				newPost && post.set(editor.getHTML());
+				newPost && contentHtml.set(editor.getHTML());
 			},
 			editable,
 			autofocus,
