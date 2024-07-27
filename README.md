@@ -19,3 +19,4 @@
 - lazy comments
 - page scrolling loading bar under header
 - confirmation modal
+- short description for posts about 200 chars between first p tags
