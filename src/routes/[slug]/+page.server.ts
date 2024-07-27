@@ -14,7 +14,7 @@ export async function load({ params, locals: { supabase } }) {
 			return error(404, params.slug + ' ait post bulunamadı.');
 		}
 
-		post.content = DOMPurify.sanitize(post.content);
+		// post.content = DOMPurify.sanitize(post.content);
 		return post;
 	};
 
