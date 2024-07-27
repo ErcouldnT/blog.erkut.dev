@@ -12,3 +12,4 @@
 - tiptap image upload
 - onboarding page
 - translate the page button
+- file upload section

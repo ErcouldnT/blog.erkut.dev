@@ -1,9 +1,15 @@
 <script lang="ts">
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms';
-	import SuperDebug from 'sveltekit-superforms';
+	// import SuperDebug from 'sveltekit-superforms';
 
 	export let data;
-	const { form, enhance, errors, constraints, message, capture, restore } = superForm(data.form); // Client form api
+
+	// Client form api
+	const { form, enhance, errors, constraints, message, delayed, capture, restore } = superForm(
+		data.form
+	);
+
 	export const snapshot = { capture, restore };
 </script>
 
@@ -33,11 +39,17 @@
 		/>
 		{#if $errors.password}<small class="invalid">{$errors.password}</small>{/if}
 	</label>
-	<button class="btn variant-filled-primary">Giriş yap</button>
+	<button disabled={$delayed} class="btn variant-filled-primary">
+		{#if $delayed}
+			<ProgressRadial width={'w-6'} />
+		{:else}
+			Giriş yap
+		{/if}
+	</button>
 	<!-- <button formaction="?/signup">Kayıt ol</button> -->
 </form>
 
-<SuperDebug data={$form} />
+<!-- <SuperDebug data={$form} /> -->
 
 <style>
 	.invalid {
