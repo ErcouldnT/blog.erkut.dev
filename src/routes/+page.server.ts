@@ -1,4 +1,7 @@
 import { error } from '@sveltejs/kit';
+import { redis } from '$lib/server/redis';
+import constant from '$lib/config/constant';
+import type { Tables } from '../types/supabase.js';
 
 export const load = async ({ locals: { supabase }, setHeaders }) => {
 	// const get10Posts = async () => {
@@ -23,20 +26,41 @@ export const load = async ({ locals: { supabase }, setHeaders }) => {
 	// 	return posts;
 	// };
 
-	// todo: redis cache
+	// Redis cache
+	const cached = await redis.get('all-posts');
+
+	if (cached) {
+		console.log('Cache hit!');
+		const ttl = await redis.ttl('all-posts');
+
+		setHeaders({
+			'cache-control': 'max-age=' + ttl
+		});
+
+		return {
+			posts: cached as Tables<'blog-posts'>[]
+		};
+	}
+
 	const getAllPosts = async () => {
+		console.log('Cache miss!');
+
 		const { data: posts, error: err } = await supabase
 			.from('blog-posts')
 			.select()
 			.order('created_at', { ascending: false });
 
 		if (err) return error(500, { message: 'Database connection error' });
+
+		await redis.set('all-posts', posts, {
+			ex: constant.redis.TTL
+		});
 		return posts;
 	};
 
-	// caching
+	// Local cache
 	setHeaders({
-		'cache-control': 'max-age=60'
+		'cache-control': 'max-age=' + constant.redis.TTL
 	});
 
 	return {
