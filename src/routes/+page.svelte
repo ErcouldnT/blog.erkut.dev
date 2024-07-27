@@ -21,7 +21,7 @@
 			<PostCard {post} />
 		{/each}
 
-		{#await data.lazy.posts}
+		<!-- {#await data.lazy.posts}
 			<p>Loading more posts...</p>
 		{:then posts}
 			{#each posts ?? [] as post}
@@ -29,7 +29,7 @@
 			{/each}
 		{:catch}
 			<p>Error loading more posts...</p>
-		{/await}
+		{/await} -->
 	</div>
 {:catch}
 	<p>Error loading posts...</p>
