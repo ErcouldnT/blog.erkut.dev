@@ -5,8 +5,8 @@ import { z } from 'zod';
 
 // Define outside the load function so the adapter can be cached
 const loginSchema = z.object({
-	email: z.string().email('Geçersiz email.'),
-	password: z.string().min(10, 'En az 10 karakter uzunluğunda olmalıdır.')
+	email: z.string().trim().email('Geçersiz email.'),
+	password: z.string().trim().min(10, 'En az 10 karakter uzunluğunda olmalıdır.')
 });
 
 export const load = async () => {

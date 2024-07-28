@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import DOMPurify from 'isomorphic-dompurify';
+// import DOMPurify from 'isomorphic-dompurify';
 
 export async function load({ params, locals: { supabase } }) {
 	const getPost = async () => {
