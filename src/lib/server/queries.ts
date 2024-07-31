@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '../../types/supabase';
-// import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 export const getPostBySlug = async (supabase: SupabaseClient<Database>, slug: string) => {
 	const { data: post, error } = await supabase
@@ -10,7 +10,9 @@ export const getPostBySlug = async (supabase: SupabaseClient<Database>, slug: st
 		.limit(1)
 		.single();
 
-	// post.content = DOMPurify.sanitize(post.content);
+	if (post) {
+		post.content = DOMPurify.sanitize(post.content);
+	}
 
 	return {
 		post,
